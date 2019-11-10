@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const routes = require('./routes');
+const dotenv = require('dotenv');
 
 const app = express();
 
+dotenv.config();
+const mongo_url = process.env.MONGO_URL;
+console.log(mongo_url);
 
-mongoose.connect('mongodb://williandias360:acesso225533@ds135876.mlab.com:35876/listacompras', {
+mongoose.connect(mongo_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
