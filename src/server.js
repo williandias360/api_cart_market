@@ -20,10 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-    port = 3333;
-}
-app.listen(port);
+app.listen(process.env.PORT || 3333);
 
 
