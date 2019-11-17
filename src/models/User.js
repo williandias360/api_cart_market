@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('../database');
 
 
 const UserSchema = new Schema({
@@ -10,13 +10,18 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        maxlength: 120
+        unique: true,
+        maxlength: 120,
+        lowercase: true
     },
     password: {
         type: String,
         required: true,
-        maxlength: 12
+        maxlength: 12,
+        select: false
     }
+}, {
+    timestamps: true
 });
 
 module.exports = model('User', UserSchema)

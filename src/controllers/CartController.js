@@ -33,5 +33,16 @@ module.exports = {
     } catch (err) {
       return res.status(400).send(err);
     }
+  },
+  async findById(req, res) {
+    try {
+      const { id } = req.params;
+      console.log(id);
+      const cart = await Cart.findById(id);
+      cart.user.password = undefined;
+      return res.send(cart);
+    } catch (err) {
+      return res.status(400).send(err);
+    }
   }
 };
