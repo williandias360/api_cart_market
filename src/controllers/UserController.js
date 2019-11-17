@@ -2,10 +2,11 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const authConfig = require("../config/auth");
 
+const expiresIn = 86400;
 
 function generateToken(params = {}) {
   return jwt.sign(params, authConfig.secret, {
-    expiresIn: 86400
+    expiresIn: expiresIn
   });
 }
 
@@ -60,7 +61,12 @@ module.exports = {
 
       user.password = undefined;
 
-      return res.send({ user, token: generateToken({ id: user.id }) });
+      const token = {
+        token: generateToken({ id: user.id }),
+        expiresIn: expiresIn
+      };
+
+      return res.send(token);
     } catch (err) {
       return res.status(400).send(err.message);
     }
